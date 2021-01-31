@@ -38,6 +38,7 @@
             this.listImagenes = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lblDestino = new System.Windows.Forms.Label();
+            this.checkBorrar = new System.Windows.Forms.CheckBox();
             this.gruVistaPrevia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPrevia)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +70,7 @@
             this.btnSelecFuente.TabIndex = 1;
             this.btnSelecFuente.Text = "Seleccionar";
             this.btnSelecFuente.UseVisualStyleBackColor = true;
-            this.btnSelecFuente.Click += new System.EventHandler(this.btnSelecFuente_Click);
+            this.btnSelecFuente.Click += new System.EventHandler(this.BtnSelecFuente_Click);
             // 
             // label1
             // 
@@ -79,7 +80,6 @@
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Carpeta Fuente:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblCarpetaFuente
             // 
@@ -89,7 +89,6 @@
             this.lblCarpetaFuente.Size = new System.Drawing.Size(87, 13);
             this.lblCarpetaFuente.TabIndex = 2;
             this.lblCarpetaFuente.Text = "No seleccionado";
-            this.lblCarpetaFuente.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -99,7 +98,6 @@
             this.label2.Size = new System.Drawing.Size(86, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Carpeta Destino:";
-            this.label2.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnSelecDestino
             // 
@@ -109,7 +107,7 @@
             this.btnSelecDestino.TabIndex = 1;
             this.btnSelecDestino.Text = "Seleccionar";
             this.btnSelecDestino.UseVisualStyleBackColor = true;
-            this.btnSelecDestino.Click += new System.EventHandler(this.btnSelecDestino_Click);
+            this.btnSelecDestino.Click += new System.EventHandler(this.BtnSelecDestino_Click);
             // 
             // listImagenes
             // 
@@ -118,7 +116,7 @@
             this.listImagenes.Name = "listImagenes";
             this.listImagenes.Size = new System.Drawing.Size(305, 121);
             this.listImagenes.TabIndex = 4;
-            this.listImagenes.SelectedIndexChanged += new System.EventHandler(this.listImagenes_SelectedIndexChanged);
+            this.listImagenes.SelectedIndexChanged += new System.EventHandler(this.ListImagenes_SelectedIndexChanged);
             // 
             // lblDestino
             // 
@@ -128,13 +126,23 @@
             this.lblDestino.Size = new System.Drawing.Size(87, 13);
             this.lblDestino.TabIndex = 2;
             this.lblDestino.Text = "No seleccionado";
-            this.lblDestino.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // checkBorrar
+            // 
+            this.checkBorrar.AutoSize = true;
+            this.checkBorrar.Location = new System.Drawing.Point(266, 223);
+            this.checkBorrar.Name = "checkBorrar";
+            this.checkBorrar.Size = new System.Drawing.Size(101, 17);
+            this.checkBorrar.TabIndex = 5;
+            this.checkBorrar.Text = "Borrar de origen";
+            this.checkBorrar.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 261);
+            this.Controls.Add(this.checkBorrar);
             this.Controls.Add(this.listImagenes);
             this.Controls.Add(this.lblDestino);
             this.Controls.Add(this.lblCarpetaFuente);
@@ -164,6 +172,7 @@
         private System.Windows.Forms.ListBox listImagenes;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Label lblDestino;
+        private System.Windows.Forms.CheckBox checkBorrar;
     }
 }
 

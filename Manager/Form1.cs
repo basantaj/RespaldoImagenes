@@ -17,66 +17,48 @@ namespace Manager
     public partial class Form1 : Form
     {
 
-       
+ 
 
         string[] archivos;
         Image im;
+
         public Form1()
         
         {
             InitializeComponent();
            
-            this.listImagenes.MouseDoubleClick+= new MouseEventHandler(listImagenes_MouseDoubleClick);
+            this.listImagenes.MouseDoubleClick+= new MouseEventHandler(ListImagenes_MouseDoubleClick);
         }
 
         
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void btnSelecFuente_Click(object sender, EventArgs e)
+        private void BtnSelecFuente_Click(object sender, EventArgs e)
         {
+            
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK) {
                 lblCarpetaFuente.Text = folderBrowserDialog1.SelectedPath;
-                archivos =Directory.GetFiles(folderBrowserDialog1.SelectedPath,"*.jpg");
-               
-                for (int i = 0; i <= archivos.Length-1; i++)
-                {
-                    int index = archivos[i].LastIndexOf("\\");
-                    //Console.Write(index);
-                    if (index > 0)
-                    {
-                        archivos[i] = archivos[i].Substring(index,archivos[i].Length-index);
-                       Console.Write(archivos[i]);
-                    }
-                }
-                listImagenes.DataSource = archivos;
-                folderBrowserDialog1.Dispose();
-               
-            }
+                ActualizarListBox(lblCarpetaFuente.Text);
 
+            }
         }
 
       
 
-        private void btnSelecDestino_Click(object sender, EventArgs e)
+        private void BtnSelecDestino_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
-            if (result == DialogResult.OK)
-            {
+            if (result == DialogResult.OK) {
                 lblDestino.Text = folderBrowserDialog1.SelectedPath;
             }
-            folderBrowserDialog1.Dispose();
         }
 
 
        
         
 
-        private void listImagenes_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void ListImagenes_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             
             int ind = this.listImagenes.IndexFromPoint(e.Location);
@@ -85,20 +67,46 @@ namespace Manager
             {
                 
                 string img = listImagenes.SelectedItem.ToString();
-                //MessageBox.Show(lblDestino.Text + img);
-                File.Copy(lblCarpetaFuente.Text + img, lblDestino.Text + img);
-                MessageBox.Show("Copiado");
+
+                im.Dispose();
+                if(!File.Exists(lblDestino.Text + img)) { 
+                    File.Copy(lblCarpetaFuente.Text + img, lblDestino.Text + img);
+                    if (checkBorrar.Checked) {
+                        File.Delete((lblCarpetaFuente.Text + img).ToString());
+                    }
+                MessageBox.Show("Imagen movida");
+                    ActualizarListBox(lblCarpetaFuente.Text);
+                } else { MessageBox.Show("La imagen ya existe en la carpeta destino"); }
+
+
             }
 
         }
-        private void listImagenes_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListImagenes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Console.Write(lblCarpetaFuente.Text + listImagenes.SelectedItem);
             if (listImagenes.SelectedItem != null)
             {
                 im = new Bitmap(lblCarpetaFuente.Text + listImagenes.SelectedItem);
                 picPrevia.Image = im;
+              
             }
         }
+
+
+        public void ActualizarListBox(string ruta) {
+            listImagenes.Items.Clear();
+            archivos = Directory.GetFiles(ruta, "*.jpg");
+            for (int i = 0; i <= archivos.Length - 1; i++) {
+                int index = archivos[i].LastIndexOf("\\");
+                if (index > 0) {
+                    archivos[i] = archivos[i].Substring(index, archivos[i].Length - index);
+                    listImagenes.Items.Add(archivos[i].ToString());
+                }
+            }
+
+        }
+
     }
+    
+
 }
